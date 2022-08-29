@@ -1,15 +1,88 @@
 [tool.poetry]
 name = "normal-form"
 version = "0.1.0"
-description = ""
+description = "A Python package for working with Conjunctive Normal Form (CNFs) and Boolean Satisfiability"
 authors = ["Vaibhav Karve <vkarve@protonmail.com>"]
+license = "GPL-3.0-or-later"
+keywords = ["cnf", "typed"]
+classifiers=[
+	'Development Status :: 4 - Beta',
+  'Intended Audience :: Science/Research',
+  'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
+  'Natural Language :: English',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python :: 3.10',
+  'Topic :: Scientific/Engineering :: Mathematics',
+  'Typing :: Typed'
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+more-itertools = "^8.14.0"
+loguru = "^0.6.0"
+typing-extensions = "^4.3.0"
+python-sat = {extras = ["pblib", "aiger"], version = "^0.1.7-alpha.19"}
+tqdm = "^4.64.0"
+colorama = "^0.4.5"
 
 [tool.poetry.dev-dependencies]
-pytest = "^5.2"
+pytest = "^7.1.2"
+pytest-coverage = "^0.0"
+pytest-parallel = "^0.1.1"
+safety = "^2.1.1"
+hypothesis = {extras = ["cli"], version = "^6.54.4"}
+mypy = "^0.971"
+autoflake = "^1.4"
+isort = "^5.10.1"
+pylint = "^2.14.5"
+mkdocs-material = "^8.4.1"
+mkdocstrings = {extras = ["python"], version = "^0.19.0"}
+mkdocs-git-revision-date-localized-plugin = "^1.1.0"
+types-colorama = "^0.4.15"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+norecursedirs = []
+
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+warn_unreachable = true
+strict = true
+disallow_untyped_defs = true
+disallow_any_unimported = true
+show_error_codes = true
+files = [
+    "normal_form/",
+    "tests/",
+]
+
+
+[tool.pyright]
+include = ["normal_form", "tests", "benchmarking", "stubs"]
+exclude = [
+  "sio2",
+  "**/__pycache__",
+  "sphinx_docs",
+  "literate_docs",
+]
+ignore = []
+defineConstant = { DEBUG = true }
+stubPath = "stubs"
+reportMissingImports = true
+reportMissingTypeStubs = false
+pythonVersion = "3.10"
+venvPath="~/.cache/pypoetry/virtualenvs/"
+
+[tool.pylint]
+py-version = "3.10"
+disable = [
+  "unsubscriptable-object",
+  "invalid-name",
+]
