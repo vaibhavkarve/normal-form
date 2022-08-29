@@ -6,18 +6,17 @@ import pytest
 from hypothesis import assume, given
 from hypothesis import strategies as st
 
-from graphsat.cnf import (Assignment, Bool, Clause, Cnf, Lit, Variable,
-                          absolute_value, assign, assign_variable_in_clause,
-                          assign_variable_in_cnf, assign_variable_in_lit,
-                          clause, cnf, int_repr, lit, lits, neg,
-                          tautologically_reduce_clause,
-                          tautologically_reduce_cnf, variable)
+from normal_form.cnf import (Assignment, Bool, Clause, Cnf, Lit, Variable,
+                             absolute_value, assign, assign_variable_in_clause,
+                             assign_variable_in_cnf, assign_variable_in_lit,
+                             clause, cnf, int_repr, lit, lits, neg,
+                             tauto_reduce, tautologically_reduce_clause,
+                             tautologically_reduce_cnf, variable)
 
 
 @given(st.sampled_from(Bool))
 def test_Bool(instance: Bool) -> None:
     assert instance in Bool
-    assert instance == instance  # Check for consistency, and __eq__.
     assert not issubclass(Bool, int)  # Bool is not a subclass of int.
     assert not issubclass(Bool, bool)  # Bool != bool.
     assert not issubclass(Bool, str)  # Bool is not a subclass of str.
@@ -27,6 +26,8 @@ def test_Bool(instance: Bool) -> None:
     assert Bool.FALSE < Bool.TRUE
     with pytest.raises(TypeError):
         assert instance < "T"
+    assert not instance == 1
+    assert instance != "T"
 
 
 @given(st.integers())
@@ -52,14 +53,16 @@ st.register_type_strategy(Variable, st.integers(min_value=1, max_value=100).map(
        st.one_of(st.from_type(Bool), st.integers()))
 def test_lit_class(instance: Bool | int, other: Bool | int) -> None:
     assert Lit(instance) == Lit(instance)  # Self-equality.
-    assert not Lit(instance) < Lit(instance)  # Order is defined.
+    assert Lit(instance) <= Lit(instance)  # Order is defined.
     if isinstance(instance, int) and isinstance(other, int):
         assert (instance < other) == (Lit(instance) < Lit(other))  # Lits are ordered by value.
     assert str(Lit(instance))
     # Check that Lits are frozen once created.
     with pytest.raises(attr.exceptions.FrozenInstanceError):
         lit1: Lit = Lit(value=3)
-        lit1.value += 1  # type: ignore  # Silence mypy for the sake of testing that Lit.value is frozen.
+        lit1.value += 1  # type: ignore[misc,operator] # Silence mypy
+                         # for the sake of testing that Lit.value is
+                         # frozen.
 
 
 @given(st.from_type(Bool | int))  #  type: ignore  # Mypy errors on union type.
@@ -85,8 +88,9 @@ def test_lit_on_lit_input(instance: Lit) -> None:
     assert lit(lit(instance)) == lit(instance)  # Check for idempotence.
 
 
-@given(st.lists(st.from_type(Bool | int | Lit),  # type: ignore  # Mypy errors on union type.
-                min_size=1))
+@given(st.lists(
+    st.from_type(Bool | int | Lit),  # type: ignore[arg-type] # Mypy errors on union type.
+    min_size=1))
 def test_clause(instance: list[Bool | int | Lit]) -> None:
     pytest.raises(ValueError, clause, [])
     # Invalid input: zero value in collection.
@@ -107,9 +111,11 @@ def test_clause_on_clause_input(instance: Clause) -> None:
     assert clause(clause(instance)) == clause(instance)  # Check for idempotence.
 
 
-@given(st.lists(st.lists(st.from_type(Bool | int | Lit),  #  type: ignore  # Mypy errors on union type.
-                         min_size=1), min_size=1))
+@given(st.lists(st.lists(
+    st.from_type(Bool | int | Lit),  # type: ignore[arg-type] # Mypy errors on union type.
+    min_size=1), min_size=1))
 def test_cnf_on_collection_input(instance: Collection[Collection[Bool | int | Lit]]) -> None:
+    pytest.raises(ValueError, cnf, [])
     # Invalid input: empty collection.
     assume(instance)
     # Invalid input: at least one of the sub-collections is empty.
@@ -143,7 +149,6 @@ def test_cnf_string_on_example() -> None:
 
 @given(st.from_type(Lit))
 def test_neg(instance: Lit) -> None:
-    pytest.raises(TypeError, neg, Bool.TRUE)
     # Check for involution.
     assert neg(instance) != instance
     assert neg(neg(instance)) == instance
@@ -166,7 +171,7 @@ def test_absolute_value(instance: Lit) -> None:
     assert absolute_value(lit(Bool.TRUE)) == lit(Bool.TRUE)
     assert absolute_value(lit(Bool.FALSE)) == lit(Bool.TRUE)
     if isinstance(instance.value, int):
-        absolute_value(instance) == lit(abs(instance.value))
+        assert absolute_value(instance) == lit(abs(instance.value))
 
 
 @given(st.from_type(Cnf))
@@ -201,6 +206,21 @@ def test_tautologically_reduce_cnf(instance: Cnf) -> None:
     # Check for idempotence.
     assert tautologically_reduce_cnf(tautologically_reduce_cnf(instance)) \
        == tautologically_reduce_cnf(instance)
+
+
+@given(arg=st.one_of(st.from_type(Clause), st.from_type(Cnf)))
+def test_tauto_reduce(arg: Clause | Cnf) -> None:
+    # Check that reduction does not error out.
+    result: Clause | Cnf = tauto_reduce(arg)
+    assert isinstance(result, type(arg))
+    # Check idempotence.
+    assert tauto_reduce(result) == result
+    # Cannot reduce just literals.
+    pytest.raises(AssertionError, tauto_reduce, Lit(value=1))
+    # Cannot reduce lists of literals that have not been converted into a Clause first.
+    pytest.raises(AssertionError, tauto_reduce, [Lit(value=1)])
+    # Cannot reduce lists of lists of literals that have not been converted into a Cnf first.
+    pytest.raises(AssertionError, tauto_reduce, [[Lit(value=1)]])
 
 
 @pytest.mark.parametrize(
@@ -265,7 +285,8 @@ def test_assign_variable_in_clause_with_example_cases(
         positive_integer: int,
         boolean: Bool,
         output: set[Bool]) -> None:
-    assign_variable_in_clause(clause(lit_collection), variable(positive_integer), boolean) \
+    assert assign_variable_in_clause(
+        clause(lit_collection), variable(positive_integer), boolean) \
         == frozenset(map(lit, output))
 
 
