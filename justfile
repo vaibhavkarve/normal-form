@@ -21,7 +21,7 @@ check-py:
     # Make sure you are using Python >= 3.10
 
 # Install all pip requirements for "normal_form" project.
-install dependencies="": check-py
+install dependencies="":
     python3 -m pip install --upgrade pip
     python3 -m pip install poetry
     poetry install {{dependencies}}
