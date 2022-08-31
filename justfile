@@ -38,9 +38,9 @@ lint:
     poetry run autoflake --in-place --recursive --expand-star-imports --remove-all-unused-imports normal_form/* tests/*
     poetry run isort normal_form/ tests/
     # stop the build if there are Python syntax errors or undefined names
-    flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    poetry run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     poetry run pylint -vvv normal_form/ tests/
     poetry run pycodestyle normal_form/ tests/
     poetry run pydocstyle normal_form/ tests/
