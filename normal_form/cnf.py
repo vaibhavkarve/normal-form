@@ -163,7 +163,7 @@ FALSE_CNF: Final[Cnf] = cnf([FALSE_CLAUSE])  # not documented, for internal use 
 
 # Basic Functions
 # ===============
-def neg(literal: Lit) -> Lit:  # type: ignore
+def neg(literal: Lit) -> Lit:
     """Negate a Lit.
 
     This function is an involution.
@@ -181,10 +181,10 @@ def neg(literal: Lit) -> Lit:  # type: ignore
             return lit(Bool.FALSE)
         case Bool.FALSE:
             return lit(Bool.TRUE)
-        case _ if isinstance(literal.value, int):
-            return lit(- literal.value)
-        case _:
-            raise TypeError(f"Argument to neg should  be of type Lit. Found {literal = }.")
+        case int():
+            return lit(-literal.value)
+        case _ as unreachable:  # pragma: nocover
+            assert_never(unreachable)
 
 
 def absolute_value(literal: Lit) -> Lit:
@@ -290,11 +290,11 @@ def tautologically_reduce_cnf(cnf_instance: Cnf) -> Cnf:
 
 @overload
 def tauto_reduce(clause_instance: Clause) -> Clause:
-    ...
+    ...  # pragma: nocover
 @overload
 def tauto_reduce(cnf_instance: Cnf) -> Cnf:
-    ...
-def tauto_reduce(arg):  # type: ignore
+    ...  # pragma: nocover
+def tauto_reduce(arg):  # type: ignore[no-untyped-def]
     match arg:
         case Clause():
             return tautologically_reduce_clause(arg)

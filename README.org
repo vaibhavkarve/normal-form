@@ -4,9 +4,9 @@
 
 # To export this file, use M-x auto-org-md-mode.
 
-* Welcome to normal-form!
+
 *A Python package for working with Conjunctive Normal Form (CNFs) and
-Boolean Satisfiability*
+Boolean Satisfiability (SAT)*
 
 
 
