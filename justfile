@@ -21,9 +21,11 @@ check-py:
     # Make sure you are using Python >= 3.10
 
 # Install all pip requirements for "normal_form" project.
-install: check-py
-    poetry install
-    poetry run nbstripout --install
+install dependencies="": check-py
+    python3 -m pip install --upgrade pip
+    python3 -m pip install poetry
+    poetry install {{dependencies}}
+    # poetry run nbstripout --install
     # Consider running "just test" for testing the project.
 
 # Update dependendencies (for package devs only).
@@ -35,6 +37,10 @@ update:
 lint:
     poetry run autoflake --in-place --recursive --expand-star-imports --remove-all-unused-imports normal_form/* tests/*
     poetry run isort normal_form/ tests/
+    # stop the build if there are Python syntax errors or undefined names
+    flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+    # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+    flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     poetry run pylint -vvv normal_form/ tests/
     poetry run pycodestyle normal_form/ tests/
     poetry run pydocstyle normal_form/ tests/
