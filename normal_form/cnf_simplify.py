@@ -8,16 +8,25 @@ Instead we implement our own functions for making this simplification.
 
 """
 import itertools as it
-from typing import FrozenSet
 
 from normal_form import cnf
 
 
-def differing_lits(clause1: cnf.Clause, clause2: cnf.Clause) -> FrozenSet[cnf.Lit]:
+def absolute_literals_of_clause(clause: cnf.Clause) -> set[cnf.Lit]:
+    """Return the set of all absolute-values of all literals in a clause, .
+
+    absolute_literals_of_clause = set ∘ map(cnf.absolute_value, __)
+
+    """
+    return {cnf.absolute_value(literal) for literal in clause}
+
+
+
+def differing_lits(clause1: cnf.Clause, clause2: cnf.Clause) -> frozenset[cnf.Lit]:
     """Give a set of literals that two clauses differ on.
 
-    This returns a set that can give us (2-times-of-the) Hamming distance between
-    clauses. Assume that the clauses have the same image under `heade_of_clause`. If
+    This returns a set that can give us twice the Hamming distance between
+    clauses. Assume that the clauses have the same image under `hedge_of_clause`. If
     not, raise an AssertionError.
 
     Quick way to compute set of distinct lits is to calculate the symmetric
@@ -56,9 +65,9 @@ def reduce_distance_one_clauses(cnf_instance: cnf.Cnf) -> cnf.Cnf:
     reduce_cnf = ungroup_clauses_to_cnf ∘ reduce_all_groups ∘ group_clauses_by_edge
     """
     for clause1, clause2 in it.combinations(cnf_instance, 2):
-        hedge1: mhg.HEdge = hedge_of_clause(clause1)
-        hedge2: mhg.HEdge = hedge_of_clause(clause2)
-        if hedge1 == hedge2 and len(differing_lits(clause1, clause2)) == 2:
+        var_set1: set[cnf.Lit] = absolute_literals_of_clause(clause1)
+        var_set2: set[cnf.Lit] = absolute_literals_of_clause(clause2)
+        if var_set1 == var_set2 and len(differing_lits(clause1, clause2)) == 2:
             # Hamming distance in clauses = 1
             reduced_cnf = cnf_instance - {clause1, clause2}
             reduced_cnf = reduced_cnf | {equivalent_smaller_clause(clause1, clause2)}
