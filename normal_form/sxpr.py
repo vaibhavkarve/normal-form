@@ -47,26 +47,26 @@ class SatSxpr(Sxpr[Src, bool]):  # pylint: disable=too-few-public-methods
     """
     def __init__(self, op: Callable[[bool, Src], bool], terms: Tuple[Src, ...]):
         init: bool
-        if op.__name__ == 'sat_and':
+        if op.__name__ in ('sat_and', 'and_'):
             init = True
-        elif op.__name__ == 'sat_or':
+        elif op.__name__ in ('sat_or', 'or_'):
             init = False
         else:
-            raise ValueError(f'Unknown operation {op} encountered')
+            raise ValueError(f'Unknown operation {op.__name__ = } encountered')
         super().__init__(op, terms, init)
 
     def __repr__(self) -> str:  # pragma: no cover
         """Use for pretty-printing an S-expression."""
-        if self.op.__name__ == 'sat_and':
+        if self.op.__name__ in ('sat_and', 'and'):
             symb: str = ' ∧ '
             color: str = Fore.RED
-        elif self.op.__name__ == 'sat_or':
+        elif self.op.__name__ in ('sat_or', 'or'):
             symb = ' ∨ '
             color = Fore.GREEN
         else:
             symb = ' ? '
             color = ''
-            logger.warning(f'Unknown operation {self.op} encountered')
+            logger.warning(f'Unknown operation {self.op.__name__ = } encountered')
 
         reset: str = Style.RESET_ALL
         colored_symbol: str = color + symb + reset
