@@ -1,7 +1,7 @@
 #!/usr/bin/env python3.8
 """Tests for cnf_simplify.py."""
 
-from hypothesis import Verbosity, given, settings
+from hypothesis import given
 from hypothesis import strategies as st
 
 from normal_form.cnf import Clause, Cnf, clause, cnf, lit
@@ -38,7 +38,6 @@ def test_subclause_reduction() -> None:
 
 
 @given(st.from_type(Cnf))
-@settings(verbosity=Verbosity.verbose)
 def test_subclause_reduction_results_in_equisatisfiable_clauses(
         cnf_instance: Cnf) -> None:
     assert cnf_pysat_satcheck(cnf_instance) \

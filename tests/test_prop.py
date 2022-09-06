@@ -4,7 +4,7 @@ import functools as ft
 import itertools as it
 
 import pytest
-from hypothesis import Verbosity, given, settings
+from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from normal_form.cnf import (FALSE_CLAUSE, FALSE_CNF, TRUE_CLAUSE, TRUE_CNF,
@@ -107,7 +107,6 @@ def test_cnf_and_clause(cnf_instance: Cnf, clause_instance: Clause) -> None:
 
 
 @given(st.from_type(Cnf), st.from_type(Cnf))
-@settings(verbosity=Verbosity.verbose)
 def test_cnf_and_cnf(cnf1: Cnf, cnf2: Cnf) -> None:
     # Check the definition.
     assert cnf_and_cnf(cnf1, cnf2) == cnf(cnf1 | cnf2)
@@ -175,13 +174,15 @@ def test_clause_or_clause(cl1: Clause, cl2: Clause) -> None:
 @given(st.from_type(Cnf), st.from_type(Lit))
 def test_cnf_or_literal(cnf_instance: Cnf, literal: Lit) -> None:
     # Check the definition.
-    assert cnf_or_literal(cnf_instance, literal) == cnf([clause | {literal} for clause in cnf_instance])
+    assert cnf_or_literal(cnf_instance, literal) == cnf(
+        [clause | {literal} for clause in cnf_instance])
     # Check commutativity.
     assert cnf_or_literal(cnf([[literal]]), literal) == cnf([[literal]])
     # Check x ∨ ⊤ = ⊤ (with simplification).
     assert tauto_reduce(cnf_or_literal(cnf_instance, lit(Bool.TRUE))) == TRUE_CNF
     # Check x ∨ ⊥ = x (with simplification).
-    assert tauto_reduce(cnf_or_literal(cnf_instance, lit(Bool.FALSE))) == tauto_reduce(cnf_instance)
+    assert tauto_reduce(cnf_or_literal(cnf_instance, lit(Bool.FALSE))) \
+        == tauto_reduce(cnf_instance)
     # Check ⊤ ∨ l = ⊤ (with simplification).
     assert tauto_reduce(cnf_or_literal(TRUE_CNF, literal)) == TRUE_CNF
     # Check ⊥ ∨ l = l (with simplification).
@@ -209,10 +210,10 @@ def test_cnf_or_clause(cnf_instance: Cnf, clause_instance: Clause) -> None:
 
 
 @given(st.from_type(Cnf), st.from_type(Cnf))
-@settings(verbosity=Verbosity.verbose)
 def test_cnf_or_cnf(cnf1: Cnf, cnf2: Cnf) -> None:
     # Check the definition.
-    assert cnf_or_cnf(cnf1, cnf2) == cnf([clause1 | clause2 for clause1, clause2 in it.product(cnf1, cnf2)])
+    assert cnf_or_cnf(cnf1, cnf2) == cnf([clause1 | clause2
+                                          for clause1, clause2 in it.product(cnf1, cnf2)])
     # Check commutativity.
     assert cnf_or_cnf(cnf1, cnf2) == cnf_or_cnf(cnf1=cnf2, cnf2=cnf1)
     # Check x ∨ x = x (with simplification).
@@ -224,7 +225,7 @@ def test_cnf_or_cnf(cnf1: Cnf, cnf2: Cnf) -> None:
 
 
 @given(st.from_type(Cnf), st.from_type(Cnf), st.from_type(Cnf))
-@settings(verbosity=Verbosity.verbose, max_examples=10)
+@settings(max_examples=10)
 def test_distributivity(cnf1: Cnf, cnf2: Cnf, cnf3: Cnf) -> None:
     # Conjunction distributes over disjunction.
     cnf_and_cnf(cnf1, cnf_or_cnf(cnf2, cnf3)) == cnf_or_cnf(cnf_and_cnf(cnf1, cnf2),
@@ -235,7 +236,7 @@ def test_distributivity(cnf1: Cnf, cnf2: Cnf, cnf3: Cnf) -> None:
 
 
 @given(st.from_type(Clause))
-@settings(verbosity=Verbosity.verbose, max_examples=10)
+@settings(max_examples=10)
 def test_neg_clause(clause_instance: Clause) -> None:
     # Check the definition.
     assert neg_clause(clause_instance) == cnf(

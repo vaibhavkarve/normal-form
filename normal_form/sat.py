@@ -149,7 +149,6 @@ def cnf_pysat_satcheck(cnf_instance: Cnf) -> bool:
         return cnf_pysat_satcheck(cnf_instance=cnf_reduced)
 
 
-
 def cnf_to_dimacs(cnf_instance: Cnf) -> str:
     """Convert a Cnf to DIMACS format.
 
