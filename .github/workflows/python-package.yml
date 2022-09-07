@@ -35,6 +35,10 @@ jobs:
         # A valid semver specifier of the just version to install
         just-version: 0.10.5 # optional
 
+    - name: Install Minisat
+      run: |
+        apt install minisat
+
     - name: Install dependencies
       run: |
         just install --with=dev
