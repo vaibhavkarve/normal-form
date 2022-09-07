@@ -60,12 +60,11 @@ def test_lit_class(instance: Bool | int, other: Bool | int) -> None:
     # Check that Lits are frozen once created.
     with pytest.raises(attr.exceptions.FrozenInstanceError):
         lit1: Lit = Lit(value=3)
-        lit1.value += 1  # type: ignore[misc,operator] # Silence mypy
-                         # for the sake of testing that Lit.value is
-                         # frozen.
+        lit1.value += 1  # type: ignore[misc,operator]
+        # Here we silence mypy for the sake of testing that `Lit.value` is frozen.
 
 
-@given(st.from_type(Bool | int))  #  type: ignore  # Mypy errors on union type.
+@given(st.from_type(Bool | int))  # type: ignore  # Mypy errors on union type.
 def test_lit_on_int_and_bool_input(instance: Bool | int) -> None:
     pytest.raises(ValueError, lit, 0)
     pytest.raises(TypeError, lit, "T")
@@ -143,8 +142,9 @@ def test_cnf_on_cnf_input(instance: Cnf) -> None:
 
 
 def test_cnf_string_on_example() -> None:
-    assert str(cnf([[1, -2], [3, Bool.TRUE]])) in ("Cnf({Clause({Bool.TRUE, 3}), Clause({-2, 1})})",
-                                                   "Cnf({Clause({-2, 1}), Clause({Bool.TRUE, 3})})")
+    assert str(cnf([[1, -2], [3, Bool.TRUE]])) in (
+        "Cnf({Clause({Bool.TRUE, 3}), Clause({-2, 1})})",
+        "Cnf({Clause({-2, 1}), Clause({Bool.TRUE, 3})})")
 
 
 @given(st.from_type(Lit))
@@ -293,7 +293,8 @@ def test_assign_variable_in_clause_with_example_cases(
 @given(st.from_type(Clause), st.from_type(Variable), st.from_type(Bool))
 def test_assign_variable_in_clause(
         clause_instance: Clause, variable_instance: Variable, boolean: Bool) -> None:
-    assign_once: Clause = assign_variable_in_clause(clause_instance, variable_instance, boolean)
+    assign_once: Clause = assign_variable_in_clause(clause_instance, variable_instance,
+                                                    boolean)
     assert assign_variable_in_clause(assign_once, variable_instance, boolean) == assign_once
 
 
@@ -311,6 +312,7 @@ def test_assign_variable_in_cnf(
 ) -> None:
     assert assign_variable_in_cnf(
         cnf(clause_collection), variable(positive_int), boolean) == cnf(output)
+
 
 @given(st.from_type(Cnf), st.from_type(Variable), st.from_type(Bool))
 def test_assign_variable_in_cnf_idempotence(

@@ -21,7 +21,6 @@ def absolute_literals_of_clause(clause: cnf.Clause) -> set[cnf.Lit]:
     return {cnf.absolute_value(literal) for literal in clause}
 
 
-
 def differing_lits(clause1: cnf.Clause, clause2: cnf.Clause) -> frozenset[cnf.Lit]:
     """Give a set of literals that two clauses differ on.
 
@@ -93,7 +92,6 @@ def subclause_reduction(cnf_instance: cnf.Cnf) -> cnf.Cnf:
 def reduce_cnf(cnf_instance: cnf.Cnf) -> cnf.Cnf:
     """Reduce distance=1 as well as subclauses."""
     return subclause_reduction(reduce_distance_one_clauses(cnf_instance))
-
 
 
 if __name__ == '__main__':  # pragma: no cover

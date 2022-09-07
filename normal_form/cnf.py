@@ -47,7 +47,6 @@ class Bool(Enum):
         return hash(self.value)
 
 
-
 @define(eq=True, order=True, frozen=True)
 class Lit:  # pylint: disable=too-few-public-methods
     value: int | Bool
@@ -56,11 +55,11 @@ class Lit:  # pylint: disable=too-few-public-methods
         return f"Lit({self.value})"
 
 
-
 class Clause(frozenset[Lit]):  # pylint: disable=too-few-public-methods
     """`Clause` is a subclass of `frozenset[Lit]`."""
     def __repr__(self) -> str:
-        sorted_lit_values: Generator[str, None, None] = (str(lit.value) for lit in sorted(self))
+        sorted_lit_values: Generator[str, None, None] = (str(lit.value)
+                                                         for lit in sorted(self))
         return f"Clause({{{', '.join(sorted_lit_values)}}})"
 
 
@@ -291,9 +290,13 @@ def tautologically_reduce_cnf(cnf_instance: Cnf) -> Cnf:
 @overload
 def tauto_reduce(clause_instance: Clause) -> Clause:
     ...  # pragma: nocover
+
+
 @overload
 def tauto_reduce(cnf_instance: Cnf) -> Cnf:
     ...  # pragma: nocover
+
+
 def tauto_reduce(arg):  # type: ignore[no-untyped-def]
     match arg:
         case Clause():
@@ -416,6 +419,7 @@ def assign(cnf_instance: Cnf, assignment: Assignment) -> Cnf:
 def int_repr(cnf_instance: Cnf) -> tuple[tuple[int | Bool, ...], ...]:
     return tuple(tuple(literal.value for literal in clause_instance)
                  for clause_instance in cnf_instance)
+
 
 if __name__ == "__main__":  # pragma: no cover
     logger.info("Literals can be constructed using the lit function")
