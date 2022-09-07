@@ -37,7 +37,7 @@ jobs:
 
     - name: Install Minisat
       run: |
-        apt install minisat
+        sudo apt install -y minisat
 
     - name: Install dependencies
       run: |
