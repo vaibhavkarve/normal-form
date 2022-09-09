@@ -17,7 +17,7 @@ plugins:
 - search
 - mkdocstrings
 - git-revision-date-localized:
-    enable_creation_date: true
+    enable_creation_date: false
 
 markdown_extensions:
   - attr_list
