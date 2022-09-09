@@ -91,10 +91,18 @@ org2py:
     emacs --batch {{ ORG_FILES }} -f org-babel-tangle --kill
     git diff {{ ORG_FILES }} {{ PY_FILES }}
 
+# Create website docs and serve on localhost.
 docs:
     # README.org -> README.md conversion should be done in org by (auto-org-md-mode).
     just _write_md
     -poetry run mkdocs serve
+
+# Create website docs and push to github-pages.
+publish:
+    # Run `just docs` if you need to debug this command.
+    just _write_md
+    poetry run mkdocs gh-deploy --force
+
 
 _write_md:
     #!/usr/bin/env bash
