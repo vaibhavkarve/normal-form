@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+
+site_name: normal-form
+
+repo_url: https://github.com/vaibhavkarve/normal-form
+repo_name: vaibhavkarve/normal-form
+
+theme:
+  name: material
+  features:
+    - navigation.expand
+    - navigation.top
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+- search
+- mkdocstrings
+- git-revision-date-localized:
+    enable_creation_date: true
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+nav:
+    - Home: 'index.md'
+    - API Reference:
+        - cnf.py: 'cnf.md'
+        - cnf_simplify.py: 'cnf_simplify.md'
+        - prop.py: 'prop.md'
+        - sat.py: 'sat.md'
+        - sxpr.py: 'sxpr.md'
+    - Literate Documentation:
+        - ...: 'literate_documentation.md'
+
+extra:
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://vaibhavkarve.github.io/
+      name: Vaibhav's Website
+    - icon: fontawesome/brands/github
+      link: https://github.com/vaibhavkarve
+      name: Vaibhav's GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/vaibhav-karve/
+      name: Vaibhav's LinkedIn
+
+copyright: Copyright &copy; 2022 Vaibhav Karve
