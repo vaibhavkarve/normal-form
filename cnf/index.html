@@ -1,0 +1,2281 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.3">
+    
+    
+      
+        <title>cnf.py - normal-form</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6b80c2a2.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cnfpy" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="normal-form" class="md-header__button md-logo" aria-label="normal-form" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            normal-form
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              cnf.py
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/vaibhavkarve/normal-form" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vaibhavkarve/normal-form
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="normal-form" class="md-nav__button md-logo" aria-label="normal-form" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    normal-form
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/vaibhavkarve/normal-form" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    vaibhavkarve/normal-form
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          API Reference
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API Reference" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API Reference
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          cnf.py
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        cnf.py
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cnfpy" class="md-nav__link">
+    cnf.py
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf" class="md-nav__link">
+    normal_form.cnf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.Clause" class="md-nav__link">
+    Clause
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.Cnf" class="md-nav__link">
+    Cnf
+  </a>
+  
+    <nav class="md-nav" aria-label="Cnf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal_form.cnf.Cnf.__str__" class="md-nav__link">
+    __str__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.absolute_value" class="md-nav__link">
+    absolute_value()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign" class="md-nav__link">
+    assign()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign_variable_in_clause" class="md-nav__link">
+    assign_variable_in_clause()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign_variable_in_cnf" class="md-nav__link">
+    assign_variable_in_cnf()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign_variable_in_lit" class="md-nav__link">
+    assign_variable_in_lit()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.clause" class="md-nav__link">
+    clause()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.cnf" class="md-nav__link">
+    cnf()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.lits" class="md-nav__link">
+    lits()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.neg" class="md-nav__link">
+    neg()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.tautologically_reduce_clause" class="md-nav__link">
+    tautologically_reduce_clause()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.tautologically_reduce_cnf" class="md-nav__link">
+    tautologically_reduce_cnf()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.variable" class="md-nav__link">
+    variable()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cnf_simplify/" class="md-nav__link">
+        cnf_simplify.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prop/" class="md-nav__link">
+        prop.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sat/" class="md-nav__link">
+        sat.py
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sxpr/" class="md-nav__link">
+        sxpr.py
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Literate Documentation
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Literate Documentation" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Literate Documentation
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../literate_documentation/" class="md-nav__link">
+        ...
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#cnfpy" class="md-nav__link">
+    cnf.py
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf" class="md-nav__link">
+    normal_form.cnf
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.Clause" class="md-nav__link">
+    Clause
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.Cnf" class="md-nav__link">
+    Cnf
+  </a>
+  
+    <nav class="md-nav" aria-label="Cnf">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#normal_form.cnf.Cnf.__str__" class="md-nav__link">
+    __str__()
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.absolute_value" class="md-nav__link">
+    absolute_value()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign" class="md-nav__link">
+    assign()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign_variable_in_clause" class="md-nav__link">
+    assign_variable_in_clause()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign_variable_in_cnf" class="md-nav__link">
+    assign_variable_in_cnf()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.assign_variable_in_lit" class="md-nav__link">
+    assign_variable_in_lit()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.clause" class="md-nav__link">
+    clause()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.cnf" class="md-nav__link">
+    cnf()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.lits" class="md-nav__link">
+    lits()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.neg" class="md-nav__link">
+    neg()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.tautologically_reduce_clause" class="md-nav__link">
+    tautologically_reduce_clause()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.tautologically_reduce_cnf" class="md-nav__link">
+    tautologically_reduce_cnf()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal_form.cnf.variable" class="md-nav__link">
+    variable()
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+  <a href="https://github.com/vaibhavkarve/normal-form/edit/master/docs/cnf.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+  <h1>cnf.py</h1>
+
+<h2 id="cnfpy">cnf.py</h2>
+
+
+<div class="doc doc-object doc-module">
+
+
+<a id="normal_form.cnf"></a>
+  <div class="doc doc-contents first">
+  
+      <p>Constructors and functions for sentences in conjunctive normal form (Cnf).</p>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="normal_form.cnf.Clause" class="doc doc-heading">
+        <code>Clause</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code>frozenset[<span title="normal_form.cnf.Lit">Lit</span>]</code></p>
+
+  
+      <p><code>Clause</code> is a subclass of <code>frozenset[Lit]</code>.</p>
+
+
+        <details class="quote">
+          <summary>Source code in <code>normal_form/cnf.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Clause</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">[</span><span class="n">Lit</span><span class="p">]):</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
+    <span class="sd">&quot;&quot;&quot;`Clause` is a subclass of `frozenset[Lit]`.&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="n">sorted_lit_values</span><span class="p">:</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">lit</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+                                                         <span class="k">for</span> <span class="n">lit</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Clause(</span><span class="se">{{</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sorted_lit_values</span><span class="p">)</span><span class="si">}</span><span class="se">}}</span><span class="s2">)&quot;</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
+<h2 id="normal_form.cnf.Cnf" class="doc doc-heading">
+        <code>Cnf</code>
+
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+      <p class="doc doc-class-bases">
+        Bases: <code>frozenset[<a class="autorefs autorefs-internal" title="normal_form.cnf.Clause" href="#normal_form.cnf.Clause">Clause</a>]</code></p>
+
+  
+      <p><code>Cnf</code> is a subclass of <code>frozenset[Clause]</code>.</p>
+
+
+        <details class="quote">
+          <summary>Source code in <code>normal_form/cnf.py</code></summary>
+          <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">66</span>
+<span class="normal">67</span>
+<span class="normal">68</span>
+<span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">Cnf</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">[</span><span class="n">Clause</span><span class="p">]):</span>  <span class="c1"># pylint: disable=too-few-public-methods</span>
+    <span class="sd">&quot;&quot;&quot;`Cnf` is a subclass of `frozenset[Clause]`.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Pretty print a Cnf after sorting its sorted clause tuples.&quot;&quot;&quot;</span>
+        <span class="n">sorted_clause_values</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Cnf(</span><span class="se">{{</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sorted_clause_values</span><span class="p">)</span><span class="si">}</span><span class="se">}}</span><span class="s2">)&quot;</span>
+</code></pre></div></td></tr></table></div>
+        </details>
+
+  
+
+  <div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h3 id="normal_form.cnf.Cnf.__str__" class="doc doc-heading">
+<code class="highlight language-python"><span class="fm">__str__</span><span class="p">()</span></code>
+
+</h3>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Pretty print a Cnf after sorting its sorted clause tuples.</p>
+
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Pretty print a Cnf after sorting its sorted clause tuples.&quot;&quot;&quot;</span>
+    <span class="n">sorted_clause_values</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Cnf(</span><span class="se">{{</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sorted_clause_values</span><span class="p">)</span><span class="si">}</span><span class="se">}}</span><span class="s2">)&quot;</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.absolute_value" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">absolute_value</span><span class="p">(</span><span class="n">literal</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Unnegated form of a Lit.</p>
+<p>This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>literal</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Lit</code>): a Lit formed from a nonzero integer.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Check that <code>literal</code> is not of type Bool and then return the absolute value of
+   <code>literal</code>. If it is of type Bool, then return <code>literal</code> as is.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">189</span>
+<span class="normal">190</span>
+<span class="normal">191</span>
+<span class="normal">192</span>
+<span class="normal">193</span>
+<span class="normal">194</span>
+<span class="normal">195</span>
+<span class="normal">196</span>
+<span class="normal">197</span>
+<span class="normal">198</span>
+<span class="normal">199</span>
+<span class="normal">200</span>
+<span class="normal">201</span>
+<span class="normal">202</span>
+<span class="normal">203</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">absolute_value</span><span class="p">(</span><span class="n">literal</span><span class="p">:</span> <span class="n">Lit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Unnegated form of a Lit.</span>
+
+<span class="sd">    This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       literal (:obj:`Lit`): a Lit formed from a nonzero integer.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Check that ``literal`` is not of type Bool and then return the absolute value of</span>
+<span class="sd">          ``literal``. If it is of type Bool, then return ``literal`` as is.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">literal</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">Bool</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">TRUE</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lit</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">literal</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.assign" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">assign</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">,</span> <span class="n">assignment</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Assign Bool values to Variables if present in Cnf.</p>
+<p>For each Variable (key) in <code>assignment</code>, replace the Variable and its negation in
+<code>cnf_instance</code> using the Bool (value) in <code>assignment</code>. The final output is always
+tautologically reduced. This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cnf_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Cnf</code>)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>assignment</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Assignment</code>): a dict with keys being Variables to be replaced and
+values being Bools that the Variables are to be assigned to.  The <code>assignment</code>
+dict need not be complete and can be partial.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="edge-case">
+  <summary>Edge case</summary>
+  <p>An empty assignment dict results in <code>cnf_instance</code> simply getting tautologically
+   reduced.</p>
+</details>
+<details class="return">
+  <summary>Return</summary>
+  <p>Tautologically-reduced Cnf formed by replacing every key in the <code>assignment</code> dict (and
+   those keys' negations) by corresponding Bool values.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">393</span>
+<span class="normal">394</span>
+<span class="normal">395</span>
+<span class="normal">396</span>
+<span class="normal">397</span>
+<span class="normal">398</span>
+<span class="normal">399</span>
+<span class="normal">400</span>
+<span class="normal">401</span>
+<span class="normal">402</span>
+<span class="normal">403</span>
+<span class="normal">404</span>
+<span class="normal">405</span>
+<span class="normal">406</span>
+<span class="normal">407</span>
+<span class="normal">408</span>
+<span class="normal">409</span>
+<span class="normal">410</span>
+<span class="normal">411</span>
+<span class="normal">412</span>
+<span class="normal">413</span>
+<span class="normal">414</span>
+<span class="normal">415</span>
+<span class="normal">416</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">assign</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">:</span> <span class="n">Cnf</span><span class="p">,</span> <span class="n">assignment</span><span class="p">:</span> <span class="n">Assignment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cnf</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Assign Bool values to Variables if present in Cnf.</span>
+
+<span class="sd">    For each Variable (key) in ``assignment``, replace the Variable and its negation in</span>
+<span class="sd">    ``cnf_instance`` using the Bool (value) in ``assignment``. The final output is always</span>
+<span class="sd">    tautologically reduced. This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       cnf_instance (:obj:`Cnf`)</span>
+<span class="sd">       assignment (:obj:`Assignment`): a dict with keys being Variables to be replaced and</span>
+<span class="sd">          values being Bools that the Variables are to be assigned to.  The ``assignment``</span>
+<span class="sd">          dict need not be complete and can be partial.</span>
+
+<span class="sd">    Edge case:</span>
+<span class="sd">       An empty assignment dict results in ``cnf_instance`` simply getting tautologically</span>
+<span class="sd">          reduced.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Tautologically-reduced Cnf formed by replacing every key in the ``assignment`` dict (and</span>
+<span class="sd">          those keys&#39; negations) by corresponding Bool values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span> <span class="ow">in</span> <span class="n">assignment</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">cnf_instance</span> <span class="o">=</span> <span class="n">assign_variable_in_cnf</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">tauto_reduce</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.assign_variable_in_clause" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">assign_variable_in_clause</span><span class="p">(</span><span class="n">clause_instance</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Assign Bool value to a Variable if present in Clause.</p>
+<p>Replace all instances of <code>variable_instance</code> and its negation in <code>clause_instance</code> with
+<code>boolean</code> and its negation respectively. Leave all else unchanged. Perform tautological
+reductions on the Clause before returning results. This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>clause_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>set[Lit]</code>): an abstract set (set or frozenset) of Lits.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>variable_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Variable</code>)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>boolean</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Bool</code>): either <code>TRUE</code> or <code>FALSE</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Tautologically-reduced Clause formed by assigning <code>variable_instance</code> to <code>boolean</code>
+   in <code>clause_instance</code>.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">335</span>
+<span class="normal">336</span>
+<span class="normal">337</span>
+<span class="normal">338</span>
+<span class="normal">339</span>
+<span class="normal">340</span>
+<span class="normal">341</span>
+<span class="normal">342</span>
+<span class="normal">343</span>
+<span class="normal">344</span>
+<span class="normal">345</span>
+<span class="normal">346</span>
+<span class="normal">347</span>
+<span class="normal">348</span>
+<span class="normal">349</span>
+<span class="normal">350</span>
+<span class="normal">351</span>
+<span class="normal">352</span>
+<span class="normal">353</span>
+<span class="normal">354</span>
+<span class="normal">355</span>
+<span class="normal">356</span>
+<span class="normal">357</span>
+<span class="normal">358</span>
+<span class="normal">359</span>
+<span class="normal">360</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">assign_variable_in_clause</span><span class="p">(</span>
+    <span class="n">clause_instance</span><span class="p">:</span> <span class="n">Clause</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">boolean</span><span class="p">:</span> <span class="n">Bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Clause</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Assign Bool value to a Variable if present in Clause.</span>
+
+<span class="sd">    Replace all instances of ``variable_instance`` and its negation in ``clause_instance`` with</span>
+<span class="sd">    ``boolean`` and its negation respectively. Leave all else unchanged. Perform tautological</span>
+<span class="sd">    reductions on the Clause before returning results. This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       clause_instance (:obj:`set[Lit]`): an abstract set (set or frozenset) of Lits.</span>
+<span class="sd">       variable_instance (:obj:`Variable`)</span>
+<span class="sd">       boolean (:obj:`Bool`): either ``TRUE`` or ``FALSE``.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Tautologically-reduced Clause formed by assigning ``variable_instance`` to ``boolean``</span>
+<span class="sd">          in ``clause_instance``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">assign_variable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Lit</span><span class="p">],</span> <span class="n">Lit</span><span class="p">]</span>
+    <span class="n">assign_variable</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+        <span class="n">assign_variable_in_lit</span><span class="p">,</span> <span class="n">variable_instance</span><span class="o">=</span><span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span><span class="o">=</span><span class="n">boolean</span>
+    <span class="p">)</span>
+    <span class="n">mapped_lits</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Lit</span><span class="p">]</span>
+    <span class="n">mapped_lits</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">assign_variable</span><span class="p">,</span> <span class="n">clause_instance</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">tauto_reduce</span><span class="p">(</span><span class="n">clause</span><span class="p">(</span><span class="n">mapped_lits</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.assign_variable_in_cnf" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">assign_variable_in_cnf</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Assign Bool value to a Variable if present in Cnf.</p>
+<p>Replace all instances of <code>variable_instance</code> and its negation in <code>cnf_instance</code> with
+<code>boolean</code> and its negation respectively. Leave all else unchanged. Perform tautological
+reductions on the Cnf before returning results. This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cnf_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>set[set[Lit]]</code>): an abstract set (set or frozenset) of abstract sets
+of Lits.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>variable_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Variable</code>)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>boolean</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Bool</code>): either <code>TRUE</code> or <code>FALSE</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Tautologically-reduced Cnf formed by assigning <code>variable_instance</code> to <code>boolean</code> in
+   <code>cnf_instance</code>.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">363</span>
+<span class="normal">364</span>
+<span class="normal">365</span>
+<span class="normal">366</span>
+<span class="normal">367</span>
+<span class="normal">368</span>
+<span class="normal">369</span>
+<span class="normal">370</span>
+<span class="normal">371</span>
+<span class="normal">372</span>
+<span class="normal">373</span>
+<span class="normal">374</span>
+<span class="normal">375</span>
+<span class="normal">376</span>
+<span class="normal">377</span>
+<span class="normal">378</span>
+<span class="normal">379</span>
+<span class="normal">380</span>
+<span class="normal">381</span>
+<span class="normal">382</span>
+<span class="normal">383</span>
+<span class="normal">384</span>
+<span class="normal">385</span>
+<span class="normal">386</span>
+<span class="normal">387</span>
+<span class="normal">388</span>
+<span class="normal">389</span>
+<span class="normal">390</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">assign_variable_in_cnf</span><span class="p">(</span>
+    <span class="n">cnf_instance</span><span class="p">:</span> <span class="n">Cnf</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">boolean</span><span class="p">:</span> <span class="n">Bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cnf</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Assign Bool value to a Variable if present in Cnf.</span>
+
+<span class="sd">    Replace all instances of ``variable_instance`` and its negation in ``cnf_instance`` with</span>
+<span class="sd">    ``boolean`` and its negation respectively. Leave all else unchanged. Perform tautological</span>
+<span class="sd">    reductions on the Cnf before returning results. This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       cnf_instance (:obj:`set[set[Lit]]`): an abstract set (set or frozenset) of abstract sets</span>
+<span class="sd">          of Lits.</span>
+<span class="sd">       variable_instance (:obj:`Variable`)</span>
+<span class="sd">       boolean (:obj:`Bool`): either ``TRUE`` or ``FALSE``.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Tautologically-reduced Cnf formed by assigning ``variable_instance`` to ``boolean`` in</span>
+<span class="sd">          ``cnf_instance``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">assign_variable</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Clause</span><span class="p">],</span> <span class="n">Clause</span><span class="p">]</span>
+    <span class="n">assign_variable</span> <span class="o">=</span> <span class="n">ft</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span>
+        <span class="n">assign_variable_in_clause</span><span class="p">,</span> <span class="n">variable_instance</span><span class="o">=</span><span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span><span class="o">=</span><span class="n">boolean</span>
+    <span class="p">)</span>
+
+    <span class="n">mapped_clauses</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Clause</span><span class="p">]</span>
+    <span class="n">mapped_clauses</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">assign_variable</span><span class="p">,</span> <span class="n">cnf_instance</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">tauto_reduce</span><span class="p">(</span><span class="n">cnf</span><span class="p">(</span><span class="n">mapped_clauses</span><span class="p">))</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.assign_variable_in_lit" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">assign_variable_in_lit</span><span class="p">(</span><span class="n">literal</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">,</span> <span class="n">boolean</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Assign Bool value to a Variable if present in Lit.</p>
+<p>Replace all instances of <code>variable_instance</code> and its negation with <code>boolean</code> and its
+negation respectively. Leave all else unchanged. This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>literal</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Lit</code>)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>variable_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Variable</code>)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+        <tr>
+          <td><code>boolean</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Bool</code>): either <code>TRUE</code> or <code>FALSE</code>.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Lit formed by assigning <code>variable_instance</code> to <code>boolean</code> in <code>literal</code>.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">312</span>
+<span class="normal">313</span>
+<span class="normal">314</span>
+<span class="normal">315</span>
+<span class="normal">316</span>
+<span class="normal">317</span>
+<span class="normal">318</span>
+<span class="normal">319</span>
+<span class="normal">320</span>
+<span class="normal">321</span>
+<span class="normal">322</span>
+<span class="normal">323</span>
+<span class="normal">324</span>
+<span class="normal">325</span>
+<span class="normal">326</span>
+<span class="normal">327</span>
+<span class="normal">328</span>
+<span class="normal">329</span>
+<span class="normal">330</span>
+<span class="normal">331</span>
+<span class="normal">332</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">assign_variable_in_lit</span><span class="p">(</span>
+    <span class="n">literal</span><span class="p">:</span> <span class="n">Lit</span><span class="p">,</span> <span class="n">variable_instance</span><span class="p">:</span> <span class="n">Variable</span><span class="p">,</span> <span class="n">boolean</span><span class="p">:</span> <span class="n">Bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Assign Bool value to a Variable if present in Lit.</span>
+
+<span class="sd">    Replace all instances of ``variable_instance`` and its negation with ``boolean`` and its</span>
+<span class="sd">    negation respectively. Leave all else unchanged. This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       literal (:obj:`Lit`)</span>
+<span class="sd">       variable_instance (:obj:`Variable`)</span>
+<span class="sd">       boolean (:obj:`Bool`): either ``TRUE`` or ``FALSE``.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Lit formed by assigning ``variable_instance`` to ``boolean`` in ``literal``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">literal</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">variable_instance</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">lit</span><span class="p">(</span><span class="n">boolean</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">literal</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="o">-</span> <span class="n">variable_instance</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">neg</span><span class="p">(</span><span class="n">lit</span><span class="p">(</span><span class="n">boolean</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">literal</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.clause" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">clause</span><span class="p">(</span><span class="n">lit_iterable</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructor-function for Clause type.</p>
+<p>By definition, a <code>Clause</code> is a nonempty frozenset of Lits. This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>lit_iterable</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Iterable[int]</code>): a nonempty iterable of ints, Bools, or Lits.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Check that each element in the iterable satisfies axioms for being a Lit and then cast
+   to Clause.</p>
+</details>
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ValueError</code>
+          </td>
+          <td><p>if <code>lit_iterable</code> is an empty iterable.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span>
+<span class="normal">125</span>
+<span class="normal">126</span>
+<span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">clause</span><span class="p">(</span><span class="n">lit_iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="n">Bool</span> <span class="o">|</span> <span class="n">Lit</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Clause</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Constructor-function for Clause type.</span>
+
+<span class="sd">    By definition, a `Clause` is a nonempty frozenset of Lits. This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       lit_iterable (:obj:`Iterable[int]`): a nonempty iterable of ints, Bools, or Lits.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Check that each element in the iterable satisfies axioms for being a Lit and then cast</span>
+<span class="sd">          to Clause.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">       ValueError: if ``lit_iterable`` is an empty iterable.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">lit_iterable</span> <span class="o">=</span> <span class="n">mit</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">lit_iterable</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">head</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encountered empty input </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">lit_iterable</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Clause</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">lit</span><span class="p">,</span> <span class="n">lit_iterable</span><span class="p">)))</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.cnf" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">cnf</span><span class="p">(</span><span class="n">clause_collection</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructor-function for Cnf type.</p>
+<p>By definition, a <code>Cnf</code> is a nonempty frozenset of Clauses. This function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>clause_collection</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Iterable[Iterable[int]]</code>): a nonempty iterable (list,
+tuple, set, frozenset) of nonempty collections of integers or Bools.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Check that each element in the iterable satisfies axioms for being a Clause and
+   then cast to Cnf.</p>
+</details>
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ValueError</code>
+          </td>
+          <td><p>if <code>clause_collection</code> is an empty iterable.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cnf</span><span class="p">(</span><span class="n">clause_collection</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span> <span class="o">|</span> <span class="n">Bool</span> <span class="o">|</span> <span class="n">Lit</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">Cnf</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Constructor-function for Cnf type.</span>
+
+<span class="sd">    By definition, a `Cnf` is a nonempty frozenset of Clauses. This function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       clause_collection (:obj:`Iterable[Iterable[int]]`): a nonempty iterable (list,</span>
+<span class="sd">          tuple, set, frozenset) of nonempty collections of integers or Bools.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Check that each element in the iterable satisfies axioms for being a Clause and</span>
+<span class="sd">          then cast to Cnf.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">       ValueError: if ``clause_collection`` is an empty iterable.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">head</span><span class="p">,</span> <span class="n">clause_collection</span> <span class="o">=</span> <span class="n">mit</span><span class="o">.</span><span class="n">spy</span><span class="p">(</span><span class="n">clause_collection</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">head</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encountered empty input </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">clause_collection</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Cnf</span><span class="p">(</span><span class="nb">frozenset</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">clause</span><span class="p">,</span> <span class="n">clause_collection</span><span class="p">)))</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.lits" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">lits</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Return frozenset of all Lits that appear in a Cnf.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cnf_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Cnf</code>)</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>A frozenset of all lits that appear in a Cnf.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">206</span>
+<span class="normal">207</span>
+<span class="normal">208</span>
+<span class="normal">209</span>
+<span class="normal">210</span>
+<span class="normal">211</span>
+<span class="normal">212</span>
+<span class="normal">213</span>
+<span class="normal">214</span>
+<span class="normal">215</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">lits</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">:</span> <span class="n">Cnf</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">frozenset</span><span class="p">[</span><span class="n">Lit</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;Return frozenset of all Lits that appear in a Cnf.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       cnf_instance (:obj:`Cnf`)</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       A frozenset of all lits that appear in a Cnf.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">frozenset</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="o">*</span><span class="n">cnf_instance</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.neg" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">neg</span><span class="p">(</span><span class="n">literal</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Negate a Lit.</p>
+<p>This function is an involution.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>literal</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>Lit</code>): a Lit formed from a nonzero integer or from a Bool.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>Return the Lit cast from the negative of <code>literal</code>. If <code>literal</code> is of type
+   Bool, then return <code>TRUE</code> for <code>FALSE</code>, <code>FALSE</code> for <code>TRUE</code>.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span>
+<span class="normal">179</span>
+<span class="normal">180</span>
+<span class="normal">181</span>
+<span class="normal">182</span>
+<span class="normal">183</span>
+<span class="normal">184</span>
+<span class="normal">185</span>
+<span class="normal">186</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">neg</span><span class="p">(</span><span class="n">literal</span><span class="p">:</span> <span class="n">Lit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Lit</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Negate a Lit.</span>
+
+<span class="sd">    This function is an involution.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       literal (:obj:`Lit`): a Lit formed from a nonzero integer or from a Bool.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       Return the Lit cast from the negative of ``literal``. If ``literal`` is of type</span>
+<span class="sd">          Bool, then return ``TRUE`` for ``FALSE``, ``FALSE`` for ``TRUE``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">match</span> <span class="n">literal</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+        <span class="k">case</span> <span class="n">Bool</span><span class="o">.</span><span class="n">TRUE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">FALSE</span><span class="p">)</span>
+        <span class="k">case</span> <span class="n">Bool</span><span class="o">.</span><span class="n">FALSE</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">TRUE</span><span class="p">)</span>
+        <span class="k">case</span> <span class="nb">int</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">lit</span><span class="p">(</span><span class="o">-</span><span class="n">literal</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">case</span> <span class="k">_</span> <span class="k">as</span> <span class="n">unreachable</span><span class="p">:</span>  <span class="c1"># pragma: nocover</span>
+            <span class="n">assert_never</span><span class="p">(</span><span class="n">unreachable</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.tautologically_reduce_clause" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">tautologically_reduce_clause</span><span class="p">(</span><span class="n">clause_instance</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reduce a Clause using various tautologies.</p>
+<p>The order in which these reductions are performed is important. This function is
+idempotent.</p>
+
+<details class="tautologies-affecting-clauses">
+  <summary>Tautologies affecting Clauses</summary>
+  <p>(⊤ ∨ c = ⊤)  (⊥ = ⊥)  (⊥ ∨ c = c)  (c ∨ ¬c = ⊤),
+where <code>x</code> is a Clause, <code>⊤</code> represents <code>TRUE</code>, <code>⊥</code> represents <code>FALSE</code>, and <code>∨</code> is
+   disjunction.</p>
+</details>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>clause_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>set[Lit]</code>): an abstract set (a set or a frozenset) of Lits.</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>The Clause formed by performing all the above-mentioned tautological reductions.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">220</span>
+<span class="normal">221</span>
+<span class="normal">222</span>
+<span class="normal">223</span>
+<span class="normal">224</span>
+<span class="normal">225</span>
+<span class="normal">226</span>
+<span class="normal">227</span>
+<span class="normal">228</span>
+<span class="normal">229</span>
+<span class="normal">230</span>
+<span class="normal">231</span>
+<span class="normal">232</span>
+<span class="normal">233</span>
+<span class="normal">234</span>
+<span class="normal">235</span>
+<span class="normal">236</span>
+<span class="normal">237</span>
+<span class="normal">238</span>
+<span class="normal">239</span>
+<span class="normal">240</span>
+<span class="normal">241</span>
+<span class="normal">242</span>
+<span class="normal">243</span>
+<span class="normal">244</span>
+<span class="normal">245</span>
+<span class="normal">246</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">tautologically_reduce_clause</span><span class="p">(</span><span class="n">clause_instance</span><span class="p">:</span> <span class="n">Clause</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Clause</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reduce a Clause using various tautologies.</span>
+
+<span class="sd">    The order in which these reductions are performed is important. This function is</span>
+<span class="sd">    idempotent.</span>
+
+<span class="sd">    Tautologies affecting Clauses:</span>
+<span class="sd">       (⊤ ∨ c = ⊤)  (⊥ = ⊥)  (⊥ ∨ c = c)  (c ∨ ¬c = ⊤),</span>
+<span class="sd">       where `x` is a Clause, `⊤` represents ``TRUE``, `⊥` represents ``FALSE``, and `∨` is</span>
+<span class="sd">          disjunction.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       clause_instance (:obj:`set[Lit]`): an abstract set (a set or a frozenset) of Lits.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       The Clause formed by performing all the above-mentioned tautological reductions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">TRUE</span><span class="p">)</span> <span class="ow">in</span> <span class="n">clause_instance</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">TRUE_CLAUSE</span>
+    <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">clause_instance</span><span class="p">)</span> <span class="o">==</span> <span class="p">{</span><span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">FALSE</span><span class="p">)}:</span>
+        <span class="k">return</span> <span class="n">FALSE_CLAUSE</span>
+    <span class="k">if</span> <span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">FALSE</span><span class="p">)</span> <span class="ow">in</span> <span class="n">clause_instance</span><span class="p">:</span>
+        <span class="n">clause_instance</span> <span class="o">=</span> <span class="n">clause</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">literal</span> <span class="k">for</span> <span class="n">literal</span> <span class="ow">in</span> <span class="n">clause_instance</span> <span class="k">if</span> <span class="n">literal</span> <span class="o">!=</span> <span class="n">lit</span><span class="p">(</span><span class="n">Bool</span><span class="o">.</span><span class="n">FALSE</span><span class="p">)])</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">neg</span><span class="p">,</span> <span class="n">clause_instance</span><span class="p">))</span><span class="o">.</span><span class="n">isdisjoint</span><span class="p">(</span><span class="n">clause_instance</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">TRUE_CLAUSE</span>
+    <span class="k">return</span> <span class="n">clause</span><span class="p">(</span><span class="n">clause_instance</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.tautologically_reduce_cnf" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">tautologically_reduce_cnf</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Reduce a Cnf using various tautologies.</p>
+<p>The order in which these reductions are performed is important. This function is
+idempotent. This is a recursive function that is guaranteed to terminate.</p>
+
+<details class="tautologies-affecting-cnfs">
+  <summary>Tautologies affecting Cnfs</summary>
+  <p>(x ∧ ⊥ = ⊥)  (⊤ = ⊤)  (⊤ ∧ x = x),
+where <code>x</code> is a Cnf, <code>⊤</code> represents <code>TRUE</code>, <code>⊥</code> represents <code>FALSE</code>, and <code>∧</code> is
+conjunction.</p>
+</details>
+<details class="there-is-also-a-special-reduction-for-cnfs">
+  <summary>There is also a special reduction for Cnfs</summary>
+  <p>(x ∧ y = x  IF  x &lt; y),
+where <code>x</code> is a Cnf, <code>y</code> is another Cnf, and <code>x &lt; y</code> means that every clause of <code>x</code>
+is also present as a clause in <code>y</code>.</p>
+</details>
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>cnf_instance</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>set[set[Lit]]</code>): an abstract set (set or frozenset) of abstract sets</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>The Cnf formed by first reducing all the clauses tautologically and then performing all
+the above-mentioned tautological reductions on the Cnf itself.</p>
+</details>
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">249</span>
+<span class="normal">250</span>
+<span class="normal">251</span>
+<span class="normal">252</span>
+<span class="normal">253</span>
+<span class="normal">254</span>
+<span class="normal">255</span>
+<span class="normal">256</span>
+<span class="normal">257</span>
+<span class="normal">258</span>
+<span class="normal">259</span>
+<span class="normal">260</span>
+<span class="normal">261</span>
+<span class="normal">262</span>
+<span class="normal">263</span>
+<span class="normal">264</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">tautologically_reduce_cnf</span><span class="p">(</span><span class="n">cnf_instance</span><span class="p">:</span> <span class="n">Cnf</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Cnf</span><span class="p">:</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Reduce a Cnf using various tautologies.</span>
+
+<span class="sd">    The order in which these reductions are performed is important. This function is</span>
+<span class="sd">    idempotent. This is a recursive function that is guaranteed to terminate.</span>
+
+<span class="sd">    Tautologies affecting Cnfs:</span>
+<span class="sd">       (x ∧ ⊥ = ⊥)  (⊤ = ⊤)  (⊤ ∧ x = x),</span>
+<span class="sd">       where `x` is a Cnf, `⊤` represents ``TRUE``, `⊥` represents ``FALSE``, and `∧` is</span>
+<span class="sd">       conjunction.</span>
+<span class="sd">    There is also a special reduction for Cnfs:</span>
+<span class="sd">       (x ∧ y = x  IF  x &lt; y),</span>
+<span class="sd">       where `x` is a Cnf, `y` is another Cnf, and `x &lt; y` means that every clause of `x`</span>
+<span class="sd">       is also present as a clause in `y`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       cnf_instance (:obj:`set[set[Lit]]`): an abstract set (set or frozenset) of abstract sets</span>
+<span class="sd">       of Lits.</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       The Cnf formed by first reducing all the clauses tautologically and then performing all</span>
+<span class="sd">       the above-mentioned tautological reductions on the Cnf itself.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">clause_set_reduced</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="n">Clause</span><span class="p">]</span>
+    <span class="n">clause_set_reduced</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">tautologically_reduce_clause</span><span class="p">,</span> <span class="n">cnf_instance</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">FALSE_CLAUSE</span> <span class="ow">in</span> <span class="n">clause_set_reduced</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">FALSE_CNF</span>
+    <span class="k">if</span> <span class="n">clause_set_reduced</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">TRUE_CNF</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">TRUE_CNF</span>
+    <span class="k">if</span> <span class="n">TRUE_CLAUSE</span> <span class="ow">in</span> <span class="n">clause_set_reduced</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">tautologically_reduce_cnf</span><span class="p">(</span><span class="n">cnf</span><span class="p">(</span><span class="n">clause_set_reduced</span> <span class="o">-</span> <span class="n">TRUE_CNF</span><span class="p">))</span>
+
+    <span class="c1"># Special reduction. x</span>
+    <span class="k">for</span> <span class="n">clause1</span><span class="p">,</span> <span class="n">clause2</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">clause_set_reduced</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">clause1</span> <span class="o">&lt;</span> <span class="n">clause2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">tautologically_reduce_cnf</span><span class="p">(</span><span class="n">cnf</span><span class="p">(</span><span class="n">clause_set_reduced</span> <span class="o">-</span> <span class="p">{</span><span class="n">clause2</span><span class="p">}))</span>
+
+    <span class="k">return</span> <span class="n">cnf</span><span class="p">(</span><span class="n">clause_set_reduced</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+
+<h2 id="normal_form.cnf.variable" class="doc doc-heading">
+<code class="highlight language-python"><span class="n">variable</span><span class="p">(</span><span class="n">positive_int</span><span class="p">)</span></code>
+
+</h2>
+
+
+  <div class="doc doc-contents ">
+  
+      <p>Constructor-function for Variable type.</p>
+<p>By definition, a <code>Variable</code> is just a positive integer.  This
+function is idempotent.</p>
+
+  <p><strong>Parameters:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Default</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td><code>positive_int</code></td>
+          <td>
+          </td>
+          <td><p>obj:<code>int</code>):</p></td>
+          <td>
+              <em>required</em>
+          </td>
+        </tr>
+    </tbody>
+  </table>
+
+<details class="return">
+  <summary>Return</summary>
+  <p>If input is indeed positive, then return <code>positive_int</code>
+after casting to Variable.</p>
+</details>
+  <p><strong>Raises:</strong></p>
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>
+                <code>ValueError</code>
+          </td>
+          <td><p>if <code>positive_int &lt;= 0</code>.</p></td>
+        </tr>
+    </tbody>
+  </table>
+
+      <details class="quote">
+        <summary>Source code in <code>normal_form/cnf.py</code></summary>
+        <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">80</span>
+<span class="normal">81</span>
+<span class="normal">82</span>
+<span class="normal">83</span>
+<span class="normal">84</span>
+<span class="normal">85</span>
+<span class="normal">86</span>
+<span class="normal">87</span>
+<span class="normal">88</span>
+<span class="normal">89</span>
+<span class="normal">90</span>
+<span class="normal">91</span>
+<span class="normal">92</span>
+<span class="normal">93</span>
+<span class="normal">94</span>
+<span class="normal">95</span>
+<span class="normal">96</span>
+<span class="normal">97</span>
+<span class="normal">98</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">variable</span><span class="p">(</span><span class="n">positive_int</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">Variable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Variable</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Constructor-function for Variable type.</span>
+
+<span class="sd">    By definition, a `Variable` is just a positive integer.  This</span>
+<span class="sd">    function is idempotent.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">       positive_int (:obj:`int`):</span>
+
+<span class="sd">    Return:</span>
+<span class="sd">       If input is indeed positive, then return ``positive_int``</span>
+<span class="sd">       after casting to Variable.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">       ValueError: if ``positive_int &lt;= 0``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">positive_int</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Variable must be a positive integer.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Variable</span><span class="p">(</span><span class="n">positive_int</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+      </details>
+  </div>
+
+</div>
+
+
+
+  </div>
+
+  </div>
+
+</div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 9, 2022</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 9, 2022</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href=".." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../cnf_simplify/" class="md-footer__link md-footer__link--next" aria-label="Next: cnf_simplify.py" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              cnf_simplify.py
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2022 Vaibhav Karve
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    <a href="https://vaibhavkarve.github.io/" target="_blank" rel="noopener" title="Vaibhav&#39;s Website" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M352 256c0 22.2-1.2 43.6-3.3 64H163.3c-2.2-20.4-3.3-41.8-3.3-64s1.2-43.6 3.3-64h185.4c2.2 20.4 3.3 41.8 3.3 64zm28.8-64h123.1c5.3 20.5 8.1 41.9 8.1 64s-2.8 43.5-8.1 64H380.8c2.1-20.6 3.2-42 3.2-64s-1.1-43.4-3.2-64zm112.6-32H376.7c-10-63.9-29.8-117.4-55.3-151.6 78.3 20.7 142 77.5 171.9 151.6zm-149.1 0H167.7c6.1-36.4 15.5-68.6 27-94.7 10.5-23.6 22.2-40.7 33.5-51.5C239.4 3.2 248.7 0 256 0s16.6 3.2 27.8 13.8c11.3 10.8 23 27.9 33.5 51.5 11.6 26 21 58.2 27 94.7zm-209 0H18.6c30-74.1 93.6-130.9 172-151.6-25.5 34.2-45.3 87.7-55.3 151.6zM8.1 192h123.1c-2.1 20.6-3.2 42-3.2 64s1.1 43.4 3.2 64H8.1C2.8 299.5 0 278.1 0 256s2.8-43.5 8.1-64zm186.6 254.6c-11.6-26-20.9-58.2-27-94.6h176.6c-6.1 36.4-15.5 68.6-27 94.6-10.5 23.6-22.2 40.7-33.5 51.5-11.2 10.7-20.5 13.9-27.8 13.9s-16.6-3.2-27.8-13.8c-11.3-10.8-23-27.9-33.5-51.5zM135.3 352c10 63.9 29.8 117.4 55.3 151.6-78.4-20.7-142-77.5-172-151.6h116.7zm358.1 0c-30 74.1-93.6 130.9-171.9 151.6 25.5-34.2 45.2-87.7 55.3-151.6h116.6z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://github.com/vaibhavkarve" target="_blank" rel="noopener" title="Vaibhav&#39;s GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+    <a href="https://www.linkedin.com/in/vaibhav-karve/" target="_blank" rel="noopener" title="Vaibhav&#39;s LinkedIn" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.2ab50757.min.js"></script>
+      
+    
+  </body>
+</html>
