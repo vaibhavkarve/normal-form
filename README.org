@@ -4,12 +4,17 @@
 
 # To export this file, use M-x auto-org-md-mode.
 
-
 *A Python package for working with Conjunctive Normal Form (CNFs) and
 Boolean Satisfiability (SAT)*
 
+#+html: <a href="https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square"> <img src="https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square" alt="License"> </a>
+
 #+begin_export markdown
 [![GitHub license](https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square)](https://github.com/vaibhavkarve/normal-form/blob/main/LICENSE)
+#+end_export
+
+#+begin_export markdown
+![license](https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square)
 #+end_export
 
 This Python package is brought to you by [[https://vaibhavkarve.github.io][Vaibhav Karve]] and [[https://faculty.math.illinois.edu/~hirani/][Anil N.
