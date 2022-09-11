@@ -8,37 +8,38 @@
 *A Python package for working with Conjunctive Normal Form (CNFs) and
 Boolean Satisfiability (SAT)*
 
+https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square
 
+This Python package is brought to you by [[https://vaibhavkarve.github.io][Vaibhav Karve]] and [[https://faculty.math.illinois.edu/~hirani/][Anil N.
+Hirani]], Department of Mathematics, University of Illinois at
+Urbana-Champaign.
 
-A Python package brought to you by [[https://vaibhavkarve.github.io][Vaibhav Karve]] and [[https://faculty.math.illinois.edu/~hirani/][Anil N. Hirani]],
-Department of Mathematics, University of Illinois at Urbana-Champaign.
-
-~normal-form~ is a Python package that recognizes variables, literals,
-clauses, and CNFs. The package implements an interface to easily
-construct CNFs and SAT-check them via third-part libraries [[http://minisat.se/][MINISAT]]
-and [[https://pysathq.github.io/][PySAT]].
+~normal-form~ recognizes variables, literals, clauses, and CNFs. The
+package implements an interface to easily construct CNFs and SAT-check
+them via third-part libraries [[http://minisat.se/][MINISAT]] and [[https://pysathq.github.io/][PySAT]].
 
 This package is written in Python v3.10, and is publicly available
-under an the [[file:LICENSE][GNU-GPL-v3.0 license]]. It is set to be released on the
-[[https://pypi.org/][Python Packaging Index]] as an open-source scientific package written in
-the literate programming style. We specifically chose to write this
+under the [[https://github.com/vaibhavkarve/normal-form/blob/main/LICENSE][GNU-GPL-v3.0 license]]. It is set to be released on the [[https://pypi.org/][Python
+Packaging Index]] as an open-source scientific package written in the
+literate programming style. We specifically chose to write this
 package as a literate program, despite the verbosity of this style,
 with the goal to create reproducible computational research.
 
 ** Installation and usage
 To get started on using this package,
 1. Istall Python 3.10 or higher.
-2. ~pip install normal-form~
+2. ~python3.10 -m pip install normal-form~
 3. Use it in a python script (or interactive REPL) as --
 
-   #+begin_src python :exports both
-     from normal_form import cnf, Cnf
+   #+begin_src python
+     from normal_form import cnf
      from normal_form import sat
 
-     x1: Cnf = cnf.cnf([[1, 2, -3], [-2, 3, -4], [-1, 4]])
+     # This is the CNF (a ∨ b ∨ ¬c) ∧ (¬b ∨ c ∨ ¬d) ∧ (¬a ∨ d).
+     x1: cnf.Cnf = cnf.cnf([[1, 2, -3], [-2, 3, -4], [-1, 4]])
 
      sat_x1: bool = sat.cnf_bruteforce_satcheck(x1)
-     print(sat_x1)  # returns: True because x1 is satisfiable.
+     print(sat_x1)  # prints: True because x1 is satisfiable.
    #+end_src
 
 ** Overview of modules
@@ -54,8 +55,7 @@ The package consists of the following modules.
 | *Test suite*                                   |                                                                               |
 | ~tests/*~                                      | Unit- and property-based tests for each module                                |
 
-3. Finally, the test suite for each module is located in the =test/=
-   folder.
+
 ** Algorithms
 Currently, ~normal-form~ implements the following algorithms --
 
