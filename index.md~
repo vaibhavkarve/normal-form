@@ -3,6 +3,8 @@ Boolean Satisfiability (SAT)**
 
 <a href="https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square"> <img src="https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square" alt="License"> </a>
 
+<a href="https://img.shields.io/badge/Python-v3.10-blue?style=flat-square"> <img src="https://img.shields.io/badge/Python-v3.10-blue?style=flat-square" alt="Python:v3.10"> </a>
+
 This Python package is brought to you by [Vaibhav Karve](https://vaibhavkarve.github.io) and [Anil N.
 Hirani](https://faculty.math.illinois.edu/~hirani/), Department of Mathematics, University of Illinois at
 Urbana-Champaign.
