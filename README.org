@@ -8,7 +8,7 @@
 *A Python package for working with Conjunctive Normal Form (CNFs) and
 Boolean Satisfiability (SAT)*
 
-[[https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square][license]]
+[![GitHub license](https://img.shields.io/github/license/vaibhavkarve/normal-form?style=flat-square)](https://github.com/vaibhavkarve/normal-form/blob/main/LICENSE)
 
 This Python package is brought to you by [[https://vaibhavkarve.github.io][Vaibhav Karve]] and [[https://faculty.math.illinois.edu/~hirani/][Anil N.
 Hirani]], Department of Mathematics, University of Illinois at
