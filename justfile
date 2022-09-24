@@ -46,17 +46,16 @@ lint:
     -poetry run pydocstyle normal_form/ tests/
 
 # Typecheck the code using mypy.
-typecheck files="./stubs/ normal_form/ tests/":
-    poetry run mypy {{ files }}
+typecheck files="":
+    poetry run python -m mypy --config-file pyproject.toml {{ files }}
     # poetry run nbqa mypy benchmarking/
     # Consider running "just lint" for linting the code.
+
 
 # Run all the tests.
 test flags="--cov-report term-missing --cov=normal_form --workers auto":
     # Helpful command for debugging: just test "-x --ff -v -s --pdb"
     poetry run pytest {{ flags }}
-    # To test Jupyter notebooks, uncomment the following:
-    # poetry run pytest --nbmake --nbmake-timeout=30 benchmarking/*.ipynb
     # Consider running "just typecheck" for statically checking types.
 
 # Run the "if __name__ == "__main__" block of all the scripts.
@@ -103,7 +102,7 @@ publish:
     just _write_md
     poetry run mkdocs gh-deploy --force
 
-
+# Write the markdown files.
 _write_md:
     #!/usr/bin/env bash
     for file in `ls normal_form/*.py`; do
@@ -114,3 +113,16 @@ _write_md:
       echo "## $base.py" > docs/$base".md"
       echo "::: normal_form.$base" >> docs/$base".md"
     done
+
+# Push package to PyPI.
+pypi:
+	poetry publish \
+	--username={{ env_var("PYPI_USERNAME") }} \
+	--password={{ env_var("PYPI_PASSWORD") }} \
+	--build --verbose
+
+export_md:
+	emacsclient -e ''
+
+_badges:
+	poetry run python -m make_badges
