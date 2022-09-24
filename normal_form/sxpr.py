@@ -1,20 +1,24 @@
 #!/usr/bin/env python3.8
 """Functions for working with s-expressions.
 
-s-expressions are inspired from ELisp.
+s-expressions are inspired from Lisp.
 """
 # Imports from standard library.
 import functools as ft
 from dataclasses import dataclass
 from typing import Callable, Generic, Tuple, TypeVar
+import operator
+from typing_extensions import reveal_type
 
 # Imports from third-party modules.
 from colorama import Fore, Style
 from loguru import logger
 
+from normal_form.cnf import Cnf
+
 # Type variables and aliases
-Src = TypeVar('Src')
-Trgt = TypeVar('Trgt')
+Src = TypeVar('Src', covariant=True)
+Trgt = TypeVar('Trgt', contravariant=True)
 
 
 @dataclass
