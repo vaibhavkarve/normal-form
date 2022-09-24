@@ -47,7 +47,7 @@ lint:
 
 # Typecheck the code using mypy.
 typecheck files="":
-    poetry run python -m mypy --config-file pyproject.toml {{ files }}
+    poetry run python -m mypy {{ files }}
     # poetry run nbqa mypy benchmarking/
     # Consider running "just lint" for linting the code.
 
@@ -116,7 +116,7 @@ _write_md:
 
 # Push package to PyPI.
 pypi:
-	poetry publish \
+	@poetry publish \
 	--username={{ env_var("PYPI_USERNAME") }} \
 	--password={{ env_var("PYPI_PASSWORD") }} \
 	--build --verbose
