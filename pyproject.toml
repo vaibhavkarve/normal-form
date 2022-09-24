@@ -1,19 +1,27 @@
 [tool.poetry]
 name = "normal-form"
-version = "0.1.0"
+version = "0.1.2"
 description = "A Python package for working with Conjunctive Normal Form (CNFs) and Boolean Satisfiability"
 authors = ["Vaibhav Karve <vkarve@protonmail.com>"]
+readme="README.md"
 license = "GPL-3.0-or-later"
-keywords = ["cnf", "typed"]
+keywords = ["cnf", "typed", "logic", "python3", "sat-solver", "sat", "clause"]
+homepage = "https://vaibhavkarve.github.io/normal-form/"
+repository = "https://github.com/vaibhavkarve/normal-form"
+documentation = "https://vaibhavkarve.github.io/normal-form/"
 classifiers=[
 	'Development Status :: 4 - Beta',
   'Intended Audience :: Science/Research',
-  'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
   'Natural Language :: English',
   'Operating System :: OS Independent',
   'Programming Language :: Python :: 3.10',
   'Topic :: Scientific/Engineering :: Mathematics',
   'Typing :: Typed'
+]
+packages = [
+    { include = "normal_form" },
+    { include = "tests" },
+    { include = "py.typed" },
 ]
 
 [tool.poetry.dependencies]
@@ -41,9 +49,13 @@ mkdocstrings = {extras = ["python"], version = "^0.19.0"}
 mkdocs-git-revision-date-localized-plugin = "^1.1.0"
 types-colorama = "^0.4.15"
 more-itertools = "^8.14.0"
+anybadge = "^1.14.0"
+types-setuptools = "^65.3.0"
+types-backports = "^0.1.3"
+types-pytz = "^2022.2.1.0"
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.2.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
@@ -52,6 +64,7 @@ norecursedirs = []
 
 
 [tool.mypy]
+mypy_path = "stubs/"
 python_version = "3.10"
 warn_return_any = true
 warn_unused_configs = true
@@ -64,6 +77,7 @@ files = [
     "normal_form/",
     "tests/",
 ]
+warn_incomplete_stub = true
 
 
 [tool.pyright]
