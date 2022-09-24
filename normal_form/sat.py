@@ -29,7 +29,7 @@ from typing import Iterator, cast
 # Imports from third-party modules.
 import more_itertools as mit
 from loguru import logger
-from pysat.solvers import Minisat22
+from pysat.solvers import Minisat22  # type: ignore[import]
 
 # Imports from local modules.
 from normal_form.cnf import (FALSE_CNF, TRUE_CNF, Assignment, Bool, Cnf, Lit,
@@ -139,6 +139,7 @@ def cnf_pysat_satcheck(cnf_instance: Cnf) -> bool:
     try:
         if (result := Minisat22(int_repr(cnf_instance)).solve()) is None:
             raise RuntimeError("Minisat22 returned None as result.")  # pragma: nocover
+        assert isinstance(result, bool)
         return result
     except (TypeError, RuntimeError) as exc:
         # The Cnf was probably not in reduced form. Reduce and try again
