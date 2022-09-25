@@ -41,7 +41,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        just install --with=dev
+        just install
 
     - name: Lint with flake8
       run: |
