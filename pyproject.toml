@@ -99,3 +99,6 @@ disable = [
   "unsubscriptable-object",
   "invalid-name",
 ]
+
+[tool.coverage.run]
+omit = ["normal_form/tests/*.py"]
