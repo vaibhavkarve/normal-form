@@ -1,8 +1,8 @@
 #! /usr/bin/env python3.8
 
 import operator as op
-
-from normal_form.sxpr import SatSxpr, Sxpr
+from normal_form.cnf import Cnf
+from normal_form.sxpr import AtomicSxpr, SatSxpr, Sxpr
 
 
 def test_Sxpr() -> None:
@@ -27,3 +27,8 @@ def test_SatSxpr() -> None:
     assert SatSxpr(op.__or__, (True, False, True)).reduce()
     assert SatSxpr(op.__or__, (False, True, True)).reduce()
     assert not SatSxpr(op.__or__, (False, False)).reduce()
+
+
+def test_SatSxpr_at_type_level() -> None:
+    complex_sxpr: SatSxpr[Cnf | bool] = AtomicSxpr(op=op.and_, terms=(True, False))
+    assert isinstance(complex_sxpr, type(complex_sxpr))
