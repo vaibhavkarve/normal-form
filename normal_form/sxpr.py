@@ -12,7 +12,6 @@ from typing import Callable, Generic, Tuple, TypeVar
 from colorama import Fore, Style
 from loguru import logger
 
-
 # Type variables and aliases
 Src = TypeVar('Src', covariant=True)
 Trgt = TypeVar('Trgt', covariant=True)

@@ -64,7 +64,7 @@ def test_lit_class(instance: Bool | int, other: Bool | int) -> None:
         # Here we silence mypy for the sake of testing that `Lit.value` is frozen.
 
 
-@given(st.from_type(Bool | int))  # type: ignore  # Mypy errors on union type.
+@given(st.from_type(Bool | int))  # type: ignore[arg-type]  # Mypy errors on union type.
 def test_lit_on_int_and_bool_input(instance: Bool | int) -> None:
     pytest.raises(ValueError, lit, 0)
     pytest.raises(TypeError, lit, "T")

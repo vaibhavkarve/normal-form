@@ -1,6 +1,7 @@
 #! /usr/bin/env python3.8
 
 import operator as op
+
 from normal_form.cnf import Cnf
 from normal_form.sxpr import AtomicSxpr, SatSxpr, Sxpr
 

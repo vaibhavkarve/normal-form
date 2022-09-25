@@ -90,7 +90,6 @@ org2py:
 
 # Create website docs and serve on localhost.
 docs:
-    # README.org -> README.md conversion should be done in org by (auto-org-md-mode).
     org-weave -E emacs README.org > README.md
     just _write_md
     -poetry run mkdocs serve
