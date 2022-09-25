@@ -112,12 +112,23 @@ _write_md:
       echo "::: normal_form.$base" >> docs/$base".md"
     done
 
-# Push package to PyPI.
-pypi:
-	@poetry publish \
-	--username={{ env_var("PYPI_USERNAME") }} \
-	--password={{ env_var("PYPI_PASSWORD") }} \
-	--build --verbose
+# Bump package version, tag on git, and push package to PyPI.
+pypi type="patch":
+    # Check if pyroject.toml has already been modified.
+    git diff --exit-code pyproject.toml && exit
+    # Bump package version in pyproject.toml.
+    poetry version {{ type }}
+    # Commit the pyproject.toml file.
+    git add pyproject.toml
+    git commit -m "bump package version"
+    # Create lightweight git tag.
+    git tag `poetry version --short`
+    git push origin `poetry version --short`
+    # Publish to PyPI.
+    @poetry publish \
+    --username={{ env_var("PYPI_USERNAME") }} \
+    --password={{ env_var("PYPI_PASSWORD") }} \
+    --build --verbose
 
 export_md:
 	emacsclient -e ''
