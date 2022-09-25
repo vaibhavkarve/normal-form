@@ -21,11 +21,9 @@ check-py:
     # Make sure you are using Python >= 3.10
 
 # Install all pip requirements for "normal_form" project.
-install dependencies="":
+install:
     python3 -m pip install --upgrade pip
-    python3 -m pip install poetry
-    poetry install {{dependencies}}
-    # poetry run nbstripout --install
+    poetry install
     # Consider running "just test" for testing the project.
 
 # Update dependendencies (for package devs only).
@@ -35,15 +33,15 @@ update:
 
 # Lint and check the codebase for style.
 lint:
-    poetry run autoflake --in-place --recursive --expand-star-imports --remove-all-unused-imports normal_form/* tests/*
-    poetry run isort normal_form/ tests/
+    poetry run autoflake --in-place --recursive --expand-star-imports --remove-all-unused-imports normal_form/*
+    poetry run isort normal_form/
     # stop the build if there are Python syntax errors or undefined names
     poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
     # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
     poetry run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=95 --statistics
-    -poetry run pylint -vvv normal_form/ tests/
-    -poetry run pycodestyle --max-line-length=95 normal_form/ tests/
-    -poetry run pydocstyle normal_form/ tests/
+    -poetry run pylint -vvv normal_form/
+    -poetry run pycodestyle --max-line-length=95 normal_form/
+    -poetry run pydocstyle normal_form/
 
 # Typecheck the code using mypy.
 typecheck files="":
@@ -93,6 +91,7 @@ org2py:
 # Create website docs and serve on localhost.
 docs:
     # README.org -> README.md conversion should be done in org by (auto-org-md-mode).
+    org-weave -E emacs README.org > README.md
     just _write_md
     -poetry run mkdocs serve
 
