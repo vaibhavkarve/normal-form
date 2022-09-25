@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "normal-form"
-version = "0.1.6"
+version = "0.1.7"
 description = "A Python package for working with Conjunctive Normal Form (CNFs) and Boolean Satisfiability"
 authors = ["Vaibhav Karve <vkarve@protonmail.com>"]
 readme="README.md"
