@@ -20,22 +20,16 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
 
-    - name: Install poetry
-      run: |
-        pipx install poetry
+    - uses: actions/setup-python@v4
       with:
         python-version: '3.10'
         cache: 'poetry'
 
     - name: Setup just
-      # You may pin to the exact commit or the version.
-      # uses: extractions/setup-just@aa5d15c144db4585980a44ebfdd2cf337c4f14cb
       uses: extractions/setup-just@v1
       with:
-        # A valid semver specifier of the just version to install
-        just-version: 1.5.0  # optional
+        just-version: 1.5.0
 
     - name: Install Minisat
       run: |
@@ -47,10 +41,8 @@ jobs:
 
     - name: Lint with flake8
       run: |
-        # run the linter from the justfile
         just lint
 
     - name: Test with pytest
       run: |
-        # run the test command from the justfile
         just test
