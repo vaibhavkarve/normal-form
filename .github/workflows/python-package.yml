@@ -26,6 +26,10 @@ jobs:
         python-version: '3.10'
         cache: 'poetry'
 
+    - name: Install poetry
+      run: |
+        pipx install poetry
+
     - name: Setup just
       uses: extractions/setup-just@v1
       with:
