@@ -20,9 +20,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
 
     - name: Install poetry
-      uses: actions/setup-python@v4
       run: |
         pipx install poetry
       with:
