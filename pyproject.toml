@@ -30,6 +30,7 @@ typing-extensions = "^4.3.0"
 python-sat = {extras = ["pblib", "aiger"], version = "^0.1.7-dev.15"}
 tqdm = "^4.64.0"
 colorama = "^0.4.5"
+wheel = ">=0.38.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = "^5.0.4"
