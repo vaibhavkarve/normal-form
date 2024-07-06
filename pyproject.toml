@@ -24,7 +24,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.10"
-more-itertools = "^8.14.0"
+more-itertools = ">=8.14,<11.0"
 loguru = ">=0.6,<0.8"
 typing-extensions = "^4.3.0"
 python-sat = {extras = ["pblib", "aiger"], version = "^0.1.7-dev.15"}
@@ -47,7 +47,7 @@ mkdocs-material = "^8.4.1"
 mkdocstrings = {extras = ["python"], version = ">=0.19,<0.23"}
 mkdocs-git-revision-date-localized-plugin = "^1.1.0"
 types-colorama = "^0.4.15"
-more-itertools = "^8.14.0"
+more-itertools = ">=8.14,<11.0"
 anybadge = "^1.14.0"
 types-setuptools = "^65.3.0"
 types-backports = "^0.1.3"
