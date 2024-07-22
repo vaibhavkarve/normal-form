@@ -42,7 +42,7 @@ hypothesis = {extras = ["cli"], version = "^6.54.4"}
 mypy = "^0.971"
 autoflake = "^1.4"
 isort = "^5.10.1"
-pylint = "^2.14.5"
+pylint = ">=2.14.5,<4.0.0"
 mkdocs-material = "^8.4.1"
 mkdocstrings = {extras = ["python"], version = ">=0.19,<0.23"}
 mkdocs-git-revision-date-localized-plugin = "^1.1.0"
