@@ -27,7 +27,7 @@ python = "^3.10"
 more-itertools = ">=8.14,<11.0"
 loguru = ">=0.6,<0.8"
 typing-extensions = "^4.3.0"
-python-sat = {extras = ["pblib", "aiger"], version = "^0.1.7-dev.15"}
+python-sat = {extras = ["pblib", "aiger"], version = ">=0.1.7,<1.9.0"}
 tqdm = "^4.64.0"
 colorama = "^0.4.5"
 wheel = ">=0.38.1"
