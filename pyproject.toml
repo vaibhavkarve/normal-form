@@ -34,7 +34,7 @@ wheel = ">=0.38.1"
 
 [tool.poetry.group.dev.dependencies]
 flake8 = ">=5.0.4,<8.0.0"
-pytest = "^7.1.2"
+pytest = ">=7.1.2,<10.0.0"
 pytest-coverage = "^0.0"
 pytest-parallel = "^0.1.1"
 safety = "^2.1.1"
